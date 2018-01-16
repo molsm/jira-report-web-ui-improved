@@ -4,14 +4,16 @@
             <div class="field">
                 <label class="label">Jira Host</label>
                 <div class="control">
-                    <input type="text" class="input" name="Jira Host" id="jirahost" placeholder="Jira Host" v-model="jiraHost">
+                    <input type="text" class="input" name="Jira Host" id="jirahost" placeholder="Jira Host"
+                           v-model="jiraHost">
                 </div>
             </div>
 
             <div class="field">
                 <label class="label">Jira Username</label>
                 <div class="control">
-                    <input type="text" class="input" name="jirausername" id="jirausername" placeholder="Jira username" v-model="jiraUsername">
+                    <input type="text" class="input" name="jirausername" id="jirausername" placeholder="Jira username"
+                           v-model="jiraUsername">
                 </div>
             </div>
 
@@ -45,22 +47,24 @@
     </div>
 </template>
 <script>
-    export default {
-        data() {
-            return {
-                jiraHost: '',
-                jiraUsername: '',
-                jiraPassword: '',
-                jiraWorklogUsername: '',
-                jiraDate: ''
-            }
-        },
+import errorHadler from 'utils/errorHandler'
 
-        methods: {
-            getReport: function (event) {
-                event.preventDefault();
-                console.log(this.jiraHost);
-            }
+export default {
+    data() {
+        return {
+            jiraHost: '',
+            jiraUsername: '',
+            jiraPassword: '',
+            jiraWorklogUsername: '',
+            jiraDate: ''
+        }
+    },
+
+    methods: {
+        getReport(event) {
+            event.preventDefault();
+            errorHadler(this.jiraHost)
         }
     }
+}
 </script>

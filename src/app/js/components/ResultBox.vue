@@ -4,11 +4,11 @@
     </pre>
 </template>
 <script>
-    export default {
-        computed: {
-            report() {
-                return 'Hello'
-            }
+export default {
+    computed: {
+        report() {
+            return 'Hello'
         }
     }
+}
 </script>
