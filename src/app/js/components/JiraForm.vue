@@ -47,7 +47,7 @@
     </div>
 </template>
 <script>
-import errorHadler from 'utils/errorHandler'
+import errorHandler from 'utils/errorHandler'
 
 export default {
     data() {
@@ -63,7 +63,7 @@ export default {
     methods: {
         getReport(event) {
             event.preventDefault();
-            errorHadler(this.jiraHost)
+            console.log(this.jiraHost)
         }
     }
 }

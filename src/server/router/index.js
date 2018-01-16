@@ -1,4 +1,5 @@
 const express = require('express');
+const jira = require('../controller/jira');
 
 module.exports = (() => {
     const router = express.Router();
@@ -6,6 +7,8 @@ module.exports = (() => {
     router.get('/', (req, res) => {
         res.render('index');
     });
+
+    router.post('/jira/buildReport', jira.buildReport);
 
     return router;
 })();
