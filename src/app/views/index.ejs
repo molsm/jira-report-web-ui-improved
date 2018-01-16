@@ -7,15 +7,35 @@
     <title>Jira Reporter Web UI</title>
 </head>
 <body>
-    <div id="app">
-        <div is="app" inline-template>
-                <div class="content">
-                    <router-view></router-view>
-                </div>
-            </div>
+<section class="hero is-info">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">
+                Primary title
+            </h1>
+            <h2 class="subtitle">
+                Primary subtitle
+            </h2>
         </div>
     </div>
+</section>
+<section class="section">
+    <div class="container" id="app">
+            <app></app>
+        </div>
+    </section>
+<footer class="footer">
+    <div class="container">
+        <div class="content has-text-centered">
+            <p>
+                <strong>Bulma</strong> by <a href="https://jgthms.com">Jeremy Thomas</a>. The source code is licensed
+                <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
+                is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+            </p>
+        </div>
+    </div>
+</footer>
 
-    <script src="/js/app.js"></script>
+<script src="/js/app.js"></script>
 </body>
 </html>

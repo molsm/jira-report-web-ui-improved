@@ -1,6 +1,23 @@
-<template>
-    <h1>Jira report WEB UI</h1>
+<template xmlns="http://www.w3.org/1999/html">
+    <div>
+        <div class="content columns">
+            <div class="column">
+                <jira-form></jira-form>
+            </div>
+            <div class="column result">
+                <result-box></result-box>
+            </div>
+        </div>
+    </div>
 </template>
 <script>
-export default {}
+    import JiraForm from './JiraForm'
+    import ResultBox from './ResultBox'
+
+    export default {
+        components: {
+            'jira-form': JiraForm,
+            'result-box': ResultBox
+        },
+    }
 </script>
