@@ -55,12 +55,16 @@ import errorHandler from '../utils/errorHandler';
 export default {
     data() {
         return {
-            jiraForm: {},
-            loading: false
+            jiraForm: {}
         };
     },
     created() {
         this.jiraForm = JSON.parse(this.$cookies.get('jiraForm'));
+    },
+    computed: {
+        loading() {
+            return this.$store.state.loading;
+        }
     },
     methods: {
         getReport(event) {
