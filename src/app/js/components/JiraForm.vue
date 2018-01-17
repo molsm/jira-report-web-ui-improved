@@ -59,14 +59,18 @@ export default {
             loading: false
         };
     },
+    created() {
+        this.jiraForm = JSON.parse(this.$cookies.get('jiraForm'));
+    },
     methods: {
         getReport(event) {
             event.preventDefault();
-            axios.post('/jira/buildReport', this.jiraForm)
-                .then(function (response) {
-                    console.log(response);
-                })
-                .catch(errorHandler);
+            this.$cookies.set('jiraForm', JSON.stringify(this.jiraForm));
+            // axios.post('/jira/buildReport', this.jiraForm)
+            //     .then(function (response) {
+            //         console.log(response);
+            //     })
+            //     .catch(errorHandler);
         }
     }
 }
