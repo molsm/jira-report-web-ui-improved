@@ -87,6 +87,7 @@ export default {
             this.$store.commit('setLoading', true);
             const jiraForm = JSON.stringify(this.jiraForm);
             this.$cookies.set('jiraForm', jiraForm);
+            this.$store.commit('setJiraHost', this.jiraForm.jiraHost);
 
             let self = this;
             axios.post('/jira/buildReport', this.jiraForm)

@@ -1,6 +1,6 @@
 export default {
     state: {
-        user: null,
+        jiraHost: '',
         reportData: {
             doneToday: [],
             pendingTasks: []
@@ -14,6 +14,9 @@ export default {
     mutations: {
         setLoading(state, flag) {
             state.loading = flag;
+        },
+        setJiraHost(state, host) {
+            state.jiraHost = host;
         },
         setReportData(state, reportData) {
             state.reportData = reportData;

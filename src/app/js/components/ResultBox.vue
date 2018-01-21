@@ -11,7 +11,7 @@
             <div class="ticket" v-if="doneToday.length > 0" v-for="(ticket, index) in doneToday" >
                 <p>
                     <span class="bold">{{ index + 1 }}. - {{ ticket.issue.key }} - </span>
-                    <span>{{ ticket.issue.summary }} (<a href="#">Link</a>) - </span>
+                    <span>{{ ticket.issue.summary }} (<a :href="getIssueLink(ticket.issue.key)">{{ getIssueLink(ticket.issue.key) }}</a>) - </span>
                     <span>{{ transformToHours(ticket.timeSpentSeconds) }}h</span>
                 </p>
                 <p class="ticket-comment">{{ ticket.comment }}</p>
@@ -25,7 +25,7 @@
                 <div class="ticket" >
                     <p class="pending" v-if="pendingTasks.length > 0" v-for="(ticket, index) in pendingTasks">
                         <span class="bold">{{ index + 1 }}. - {{ ticket.key }} - </span>
-                        <span>{{ ticket.fields.summary }} (<a href="#">Link</a>)</span>
+                        <span>{{ ticket.fields.summary }} (<a :href="getIssueLink(ticket.key)">{{ getIssueLink(ticket.key) }}</a>)</span>
                     </p>
                 </div>
             <p class="section-heading">Input from PM / Client Required:</p>
@@ -56,11 +56,10 @@ export default {
             return this.$store.state.reportData.doneToday.reduce(this.computeTotal, 0);
         },
         approxPendingTaskHours() {
-            let pendingIssues = this.$store.state.reportData.pendingTasks;
+            const pendingIssues = this.$store.state.reportData.pendingTasks;
             let totalApproxHours = 0;
 
-            var self = this;
-            pendingIssues.forEach(function (ticket) {
+            pendingIssues.forEach(function(ticket) {
                 let estimateSeconds = ticket.fields.timetracking.originalEstimateSeconds;
                 let timeSpentSeconds = ticket.fields.timetracking.timeSpentSeconds;
                 if (estimateSeconds && timeSpentSeconds) {
@@ -70,20 +69,20 @@ export default {
 
             if (totalApproxHours > 0) {
                 return this.transformToHours(totalApproxHours);
-            } else {
-                return totalApproxHours;
             }
+
+            return totalApproxHours;
         }
     },
     methods: {
-        transformToHours: function (timeInSeconds) {
+        transformToHours(timeInSeconds) {
             return timeInSeconds / 60 / 60;
         },
         computeTotal(accumulator, ticket) {
             return accumulator + this.transformToHours(ticket.timeSpentSeconds);
         },
         getIssueLink(issueId) {
-            return '';
+            return 'https://' + this.$store.state.jiraHost + '/browse/' + issueId;
         }
     },
     components: {
