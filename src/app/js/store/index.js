@@ -3,23 +3,21 @@ export default {
         user: null,
         reportData: {},
         notification: {
-            notificationMessage: '',
+            message: '',
             isError: false
         },
         loading: false
     },
     mutations: {
-        setUser(state, user) {
-            state.user = user;
+        setLoading(state, flag) {
+            state.loading = flag;
         },
         setReportData(state, reportData) {
             state.reportData = reportData;
         },
-        setNotificationMessage(state, message) {
-            state.notification.message = message;
-        },
-        setNotificationErrorFlag(state, isError) {
-            state.notification.isError = isError;
+        setNotification(state, notification) {
+            state.notification.message = notification.message;
+            state.notification.isError = notification.isError;
         }
     }
 };

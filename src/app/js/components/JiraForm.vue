@@ -59,7 +59,12 @@ export default {
         };
     },
     created() {
-        this.jiraForm = JSON.parse(this.$cookies.get('jiraForm'));
+        const jiraForm = JSON.parse(this.$cookies.get('jiraForm'));
+
+        if (jiraForm) {
+            this.jiraForm = jiraForm;
+        }
+
     },
     computed: {
         loading() {
@@ -69,12 +74,20 @@ export default {
     methods: {
         getReport(event) {
             event.preventDefault();
-            this.$cookies.set('jiraForm', JSON.stringify(this.jiraForm));
-            // axios.post('/jira/buildReport', this.jiraForm)
-            //     .then(function (response) {
-            //         console.log(response);
-            //     })
-            //     .catch(errorHandler);
+            this.$store.commit('setLoading', true);
+            const jiraForm = JSON.stringify(this.jiraForm);
+            this.$cookies.set('jiraForm', jiraForm);
+
+            let self = this;
+            axios.post('/jira/buildReport', this.jiraForm)
+                .then(function (response) {
+                    console.log(response);
+                    self.$store.commit('setLoading', false);
+                })
+                .catch(function (response) {
+                    errorHandler(response);
+                    self.$store.commit('setLoading', false);
+                });
         }
     }
 }
