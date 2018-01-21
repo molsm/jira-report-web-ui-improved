@@ -2,7 +2,8 @@ export default {
     state: {
         user: null,
         reportData: {
-            doneToday: []
+            doneToday: [],
+            pendingTasks: []
         },
         notification: {
             message: '',
@@ -23,6 +24,9 @@ export default {
         },
         setReportDataDoneToday(state, data) {
             state.reportData.doneToday = data;
+        },
+        setReportDataPendingTasks(state, data) {
+            state.reportData.pendingTasks = data;
         }
     }
 };

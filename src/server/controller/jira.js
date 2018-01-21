@@ -17,6 +17,11 @@ const buildReport = (req, res) => {
 
     let promises = [];
     let issueIds = [];
+
+    if (req.body.jiraPendingTasks) {
+        issueIds = req.body.jiraPendingTasks.split(',');
+    }
+
     promises.push(getWorklog());
 
     for (let i = 0; i < issueIds.length; ++i) {

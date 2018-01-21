@@ -22,9 +22,12 @@
     .ticket {
         margin-bottom: 15px;
 
+        .pending {
+            margin-bottom: 0;
+        }
+
         .ticket-comment {
             white-space: pre-wrap;
         }
     }
-
 }

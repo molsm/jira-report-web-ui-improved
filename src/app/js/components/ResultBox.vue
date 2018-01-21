@@ -22,7 +22,12 @@
             <p class="section-heading">Exceeded estimate:</p>
             <p>n/a</p>
             <p class="section-heading">Pending tasks:</p>
-            <p>n/a</p>
+                <div class="ticket" >
+                    <p class="pending" v-if="pendingTasks.length > 0" v-for="(ticket, index) in pendingTasks">
+                        <span class="bold">{{ index + 1 }}. - {{ ticket.key }} - </span>
+                        <span>{{ ticket.fields.summary }} (<a href="#">Link</a>)</span>
+                    </p>
+                </div>
             <p class="section-heading">Input from PM / Client Required:</p>
             <p>n/a</p>
             <p class="summary">
@@ -44,11 +49,30 @@ export default {
         doneToday() {
             return this.$store.state.reportData.doneToday;
         },
+        pendingTasks() {
+            return this.$store.state.reportData.pendingTasks;
+        },
         totalTimeSpent() {
             return this.$store.state.reportData.doneToday.reduce(this.computeTotal, 0);
         },
         approxPendingTaskHours() {
-            return 0;
+            let pendingIssues = this.$store.state.reportData.pendingTasks;
+            let totalApproxHours = 0;
+
+            var self = this;
+            pendingIssues.forEach(function (ticket) {
+                let estimateSeconds = ticket.fields.timetracking.originalEstimateSeconds;
+                let timeSpentSeconds = ticket.fields.timetracking.timeSpentSeconds;
+                if (estimateSeconds && timeSpentSeconds) {
+                    totalApproxHours += Math.abs(estimateSeconds - timeSpentSeconds);
+                }
+            });
+
+            if (totalApproxHours > 0) {
+                return this.transformToHours(totalApproxHours);
+            } else {
+                return totalApproxHours;
+            }
         }
     },
     methods: {
@@ -57,6 +81,9 @@ export default {
         },
         computeTotal(accumulator, ticket) {
             return accumulator + this.transformToHours(ticket.timeSpentSeconds);
+        },
+        getIssueLink(issueId) {
+            return '';
         }
     },
     components: {

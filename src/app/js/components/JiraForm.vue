@@ -1,14 +1,18 @@
 <template>
     <div class="form">
         <form v-on:submit="getReport" action="#" method="post">
-            <div class="field">
-                <label class="label">Jira Host</label>
-                <div class="control">
+            <label class="label">Jira Host</label>
+            <div class="field has-addons">
+                <p class="control">
+                    <a class="button is-static">
+                        https://
+                    </a>
+                </p>
+                <p class="control is-expanded">
                     <input type="text" class="input" name="Jira Host" id="jirahost" placeholder="Jira Host"
                            v-model="jiraForm.jiraHost" :disabled="loading">
-                </div>
+                </p>
             </div>
-
             <div class="field">
                 <label class="label">Jira Username</label>
                 <div class="control">
@@ -16,7 +20,6 @@
                            v-model="jiraForm.jiraUsername" :disabled="loading">
                 </div>
             </div>
-
             <div class="field">
                 <label class="label">Jira Password</label>
                 <div class="control">
@@ -24,7 +27,6 @@
                            v-model="jiraForm.jiraPassword" :disabled="loading">
                 </div>
             </div>
-
             <div class="field">
                 <label class="label">Jira Worklog Username</label>
                 <div class="control">
@@ -32,7 +34,13 @@
                            v-model="jiraForm.jiraWorklogUsername" :disabled="loading">
                 </div>
             </div>
-
+            <div class="field">
+                <label class="label">Pending Tasks</label>
+                <div class="control">
+                    <input type="text" class="input" placeholder="ID-123,ID-123,ID-123...."
+                           v-model="jiraForm.jiraPendingTasks" :disabled="loading">
+                </div>
+            </div>
             <div class="field">
                 <label class="label">Date</label>
                 <div class="control">
@@ -85,6 +93,7 @@ export default {
                 .then(function (response) {
                     console.log(response);
                     self.$store.commit('setReportDataDoneToday', response.data.worklog);
+                    self.$store.commit('setReportDataPendingTasks', response.data.pendingIssues);
                     self.$store.commit('setLoading', false);
                 })
                 .catch(function (response) {
