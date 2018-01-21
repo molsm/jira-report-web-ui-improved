@@ -1,7 +1,9 @@
 export default {
     state: {
         user: null,
-        reportData: {},
+        reportData: {
+            doneToday: []
+        },
         notification: {
             message: '',
             isError: false
@@ -18,6 +20,9 @@ export default {
         setNotification(state, notification) {
             state.notification.message = notification.message;
             state.notification.isError = notification.isError;
+        },
+        setReportDataDoneToday(state, data) {
+            state.reportData.doneToday = data;
         }
     }
 };

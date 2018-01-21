@@ -1,16 +1,30 @@
 .result-box {
     border: 2px solid lightgray;
     height: 100%;
+    min-height: 720px;
     font-family: sans-serif;
     font-size: 13px;
     padding: 10px 20px;
     color: black;
 
     .v-spinner {
-        margin: 0 auto;
+        margin: 250px auto 0 auto;
     }
 
-    .section-heading, .summary {
+    .section-heading, .summary, .bold {
         font-weight: bold;
     }
+
+    .summary {
+        line-height: 15px;
+    }
+
+    .ticket {
+        margin-bottom: 15px;
+
+        .ticket-comment {
+            white-space: pre-wrap;
+        }
+    }
+
 }

@@ -55,7 +55,9 @@ import errorHandler from '../utils/errorHandler';
 export default {
     data() {
         return {
-            jiraForm: {}
+            jiraForm: {
+                jiraDate: new Date().toJSON().slice(0,10)
+            }
         };
     },
     created() {
@@ -82,6 +84,7 @@ export default {
             axios.post('/jira/buildReport', this.jiraForm)
                 .then(function (response) {
                     console.log(response);
+                    self.$store.commit('setReportDataDoneToday', response.data.worklog);
                     self.$store.commit('setLoading', false);
                 })
                 .catch(function (response) {
