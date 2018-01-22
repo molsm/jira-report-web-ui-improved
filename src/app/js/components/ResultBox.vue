@@ -8,7 +8,7 @@
             <p class="section-heading">Summary of critical issues:</p>
             <p>n/a</p>
             <p class="section-heading done-today">Done today:</p>
-            <div class="ticket" v-if="doneToday.length > 0" v-for="(ticket, index) in doneToday" >
+            <div class="ticket" v-if="doneToday.length > 0" v-for="(ticket, index) in doneToday" :key="index">
                 <p>
                     <span class="bold">{{ index + 1 }}. - {{ ticket.issue.key }} - </span>
                     <span>{{ ticket.issue.summary }} (<a :href="getIssueLink(ticket.issue.key)">{{ getIssueLink(ticket.issue.key) }}</a>) - </span>
@@ -23,7 +23,7 @@
             <p>n/a</p>
             <p class="section-heading">Pending tasks:</p>
                 <div class="ticket" >
-                    <p class="pending" v-if="pendingTasks.length > 0" v-for="(ticket, index) in pendingTasks">
+                    <p class="pending" v-if="pendingTasks.length > 0" v-for="(ticket, index) in pendingTasks" :key="index">
                         <span class="bold">{{ index + 1 }}. - {{ ticket.key }} - </span>
                         <span>{{ ticket.fields.summary }} (<a :href="getIssueLink(ticket.key)">{{ getIssueLink(ticket.key) }}</a>)</span>
                     </p>
@@ -59,9 +59,8 @@ export default {
             const pendingIssues = this.$store.state.reportData.pendingTasks;
             let totalApproxHours = 0;
 
-            pendingIssues.forEach(function(ticket) {
-                let estimateSeconds = ticket.fields.timetracking.originalEstimateSeconds;
-                let timeSpentSeconds = ticket.fields.timetracking.timeSpentSeconds;
+            pendingIssues.forEach((ticket) => {
+                const { originalEstimateSeconds: estimateSeconds, timeSpentSeconds } = ticket.fields.timetracking;
                 if (estimateSeconds && timeSpentSeconds) {
                     totalApproxHours += Math.abs(estimateSeconds - timeSpentSeconds);
                 }
@@ -82,7 +81,7 @@ export default {
             return accumulator + this.transformToHours(ticket.timeSpentSeconds);
         },
         getIssueLink(issueId) {
-            return 'https://' + this.$store.state.jiraHost + '/browse/' + issueId;
+            return `https:// + ${this.$store.state.jiraHost} + /browse/ + ${issueId}`;
         }
     },
     components: {

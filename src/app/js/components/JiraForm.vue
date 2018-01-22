@@ -64,7 +64,7 @@ export default {
     data() {
         return {
             jiraForm: {
-                jiraDate: new Date().toJSON().slice(0,10)
+                jiraDate: new Date().toJSON().slice(0, 10)
             }
         };
     },
@@ -74,7 +74,6 @@ export default {
         if (jiraForm) {
             this.jiraForm = jiraForm;
         }
-
     },
     computed: {
         loading() {
@@ -89,15 +88,15 @@ export default {
             this.$cookies.set('jiraForm', jiraForm);
             this.$store.commit('setJiraHost', this.jiraForm.jiraHost);
 
-            let self = this;
+            const self = this;
             axios.post('/jira/buildReport', this.jiraForm)
-                .then(function (response) {
+                .then((response) => {
                     console.log(response);
                     self.$store.commit('setReportDataDoneToday', response.data.worklog);
                     self.$store.commit('setReportDataPendingTasks', response.data.pendingIssues);
                     self.$store.commit('setLoading', false);
                 })
-                .catch(function (response) {
+                .catch((response) => {
                     errorHandler(response);
                     self.$store.commit('setLoading', false);
                 });
