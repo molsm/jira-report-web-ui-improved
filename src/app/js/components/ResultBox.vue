@@ -85,7 +85,7 @@ export default {
             return accumulator + ticket.timeSpentSeconds;
         },
         getIssueLink(issueId) {
-            return `https:// + ${this.$store.state.jiraHost} + /browse/ + ${issueId}`;
+            return `https://${this.$store.state.jiraHost}/browse/${issueId}`;
         }
     },
     components: {
