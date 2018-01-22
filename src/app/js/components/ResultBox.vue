@@ -60,9 +60,16 @@ export default {
             let totalApproxHours = 0;
 
             pendingIssues.forEach((ticket) => {
-                const { originalEstimateSeconds: estimateSeconds, timeSpentSeconds } = ticket.fields.timetracking;
-                if (estimateSeconds && timeSpentSeconds) {
-                    if (estimateSeconds < timeSpentSeconds) {
+                const {
+                    originalEstimateSeconds: estimateSeconds,
+                    timeSpentSeconds,
+                    remainingEstimateSeconds
+                } = ticket.fields.timetracking;
+
+                if (remainingEstimateSeconds) {
+                    totalApproxHours += remainingEstimateSeconds;
+                } else if (estimateSeconds && timeSpentSeconds) {
+                    if (estimateSeconds > timeSpentSeconds) {
                         totalApproxHours += Math.abs(estimateSeconds - timeSpentSeconds);
                     }
                 } else if (estimateSeconds && timeSpentSeconds === undefined) {

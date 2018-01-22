@@ -86,7 +86,7 @@ export default {
             this.$store.commit('setLoading', true);
             this.$store.commit('setJiraHost', this.jiraForm.jiraHost);
 
-            const jiraForm = JSON.stringify(Object.assign({}, this.jiraForm, {jiraPassword: undefined}));
+            const jiraForm = JSON.stringify(Object.assign({}, this.jiraForm, { jiraPassword: undefined }));
             this.$cookies.set('jiraForm', jiraForm);
 
             const self = this;
