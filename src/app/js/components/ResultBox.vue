@@ -53,7 +53,7 @@ export default {
             return this.$store.state.reportData.pendingTasks;
         },
         totalTimeSpent() {
-            return this.$store.state.reportData.doneToday.reduce(this.computeTotal, 0);
+            return this.transformToHours(this.$store.state.reportData.doneToday.reduce(this.computeTotal, 0));
         },
         approxPendingTaskHours() {
             const pendingIssues = this.$store.state.reportData.pendingTasks;
@@ -75,10 +75,10 @@ export default {
     },
     methods: {
         transformToHours(timeInSeconds) {
-            return timeInSeconds / 60 / 60;
+            return (timeInSeconds / 60 / 60).toFixed(2);
         },
         computeTotal(accumulator, ticket) {
-            return accumulator + this.transformToHours(ticket.timeSpentSeconds);
+            return accumulator + ticket.timeSpentSeconds;
         },
         getIssueLink(issueId) {
             return `https:// + ${this.$store.state.jiraHost} + /browse/ + ${issueId}`;
