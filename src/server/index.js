@@ -1,4 +1,6 @@
 require('dotenv').config();
+const port = process.env.SERVER_PORT || 80;
+
 const path = require('path');
 const debug = require('debug')('express:view');
 const express = require('express');
@@ -17,4 +19,4 @@ app.use(responseMiddleware);
 
 app.use(router);
 
-app.listen(3000, () => console.log('Listening on 3000'));
+app.listen(port, () => console.log('Listening on ' + port));
