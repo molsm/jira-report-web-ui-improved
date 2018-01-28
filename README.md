@@ -27,7 +27,7 @@ node src/server/
 Assets compilation + watcher
 
 ```
-npm run watch - 
+npm run watch
 ```
 
 # Versioning
