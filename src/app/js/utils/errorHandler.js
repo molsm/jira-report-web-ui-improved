@@ -1,10 +1,8 @@
+import store from '../store'
+
 const errorHandler = (error) => {
     const errorData = error.response.data;
-    console.error(error.response.data);
-
-    if (errorData.code === 'PERMISSION_DENIED' || errorData.code === 'BACK_TO_LOGIN') {
-        window.location.href = '/';
-    }
+    store.state.notification = { message: errorData.message, error: errorData.error };
 }
 
 export default errorHandler;

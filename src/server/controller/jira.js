@@ -48,7 +48,15 @@ const buildReport = (req, res) => {
 
             res.success(responseData);
         })).catch(function (response) {
-            res.error(response.message);
+            let errorMessages = response.message;
+
+            if (response.response.data.errorMessages && response.response.data.errorMessages.length > 0) {
+                errorMessages = response.response.data.errorMessages.join();
+            } else if (response.response.status === 401) {
+                errorMessages = 'Invalid credentials. Unauthorized';
+            }
+
+            res.error(response.response.status, 'Jira response: ' + errorMessages, response.response.status);
         });
 };
 
