@@ -15,7 +15,7 @@ const buildReport = (req, res) => {
         });
     }
 
-    let promises = [];
+    const promises = [];
     let issueIds = [];
 
     if (req.body.jiraPendingTasks) {
@@ -25,7 +25,7 @@ const buildReport = (req, res) => {
     promises.push(getWorklog());
 
     for (let i = 0; i < issueIds.length; ++i) {
-        let request = function () {
+        const request = function () {
             return axios.get('https://' + req.body.jiraHost + '/rest/api/2/issue/' + issueIds[i], {
                 auth: {
                     username: req.body.jiraUsername,

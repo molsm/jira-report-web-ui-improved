@@ -92,7 +92,7 @@ export default {
             const self = this;
             axios.post('/jira/buildReport', this.jiraForm)
                 .then((response) => {
-                    self.$store.commit('setReportDataDoneToday', response.data.worklog);
+                    self.$store.dispatch('filterTicketsDoneToday', response.data.worklog);
                     self.$store.commit('setReportDataPendingTasks', response.data.pendingIssues);
                     self.$store.commit('setLoading', false);
                 })

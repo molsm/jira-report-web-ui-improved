@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 export default {
     state: {
         jiraHost: '',
@@ -30,6 +32,25 @@ export default {
         },
         setReportDataPendingTasks(state, data) {
             state.reportData.pendingTasks = data;
+        }
+    },
+    actions: {
+        filterTicketsDoneToday({ commit }, data) {
+            const filteredTickets = {};
+
+            data.forEach((ticket) => {
+                const issueKey = ticket.issue.key;
+                const found = _.find(filteredTickets, task => task.issue.key === issueKey);
+
+                if (found) {
+                    filteredTickets[issueKey].comment += '\n' + ticket.comment; // eslint-disable-line
+                    filteredTickets[issueKey].timeSpentSeconds += ticket.timeSpentSeconds;
+                } else {
+                    filteredTickets[issueKey] = ticket;
+                }
+            });
+
+            commit('setReportDataDoneToday', _.map(filteredTickets, ticket => ticket));
         }
     }
 };
