@@ -3,6 +3,12 @@ const path = require('path');
 
 const rootPath = path.join(__dirname, '..', 'src');
 
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+const extractSass = new ExtractTextPlugin({
+    filename: './public/css/app.css'
+});
+
 module.exports = {
     devtool: 'eval',
     context: path.join(rootPath, 'app'),
@@ -46,16 +52,16 @@ module.exports = {
 
             {
                 test: /\.scss$/,
-                use: [{
-                        loader: 'style-loader'
-                    },
-                    {
-                        loader: 'css-loader'
-                    },
-                    {
-                        loader: 'sass-loader'
-                    }
-                ]
+                use: extractSass.extract({
+                    use: [{
+                            loader: 'css-loader'
+                        },
+                        {
+                            loader: 'sass-loader'
+                        }
+                    ],
+                    fallback: "style-loader"
+                })
             },
 
             {
@@ -73,5 +79,8 @@ module.exports = {
                 }
             }
         ]
-    }
+    },
+    plugins: [
+        extractSass
+    ]
 }

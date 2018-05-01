@@ -1,5 +1,6 @@
 .idea/
 node_modules/
 public/js/
+public/css
 .DS_Store
 .env
