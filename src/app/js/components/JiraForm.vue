@@ -7,6 +7,7 @@
                     <input type="password" class="input" placeholder="Token"
                            v-model="jiraForm.token" :disabled="loading">
                 </div>
+                <p class="help">Jira -> Tempo -> Tempo Settings -> API Integration -> Get Access Token</p>
             </div>
             <div class="field">
                 <label class="label">Jira Worklog Username</label>
