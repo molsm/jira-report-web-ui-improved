@@ -1,6 +1,6 @@
 <template>
     <div class="form">
-        <form v-on:submit="getReport" action="#" method="post">§
+        <form v-on:submit="getReport" action="#" method="post">
             <div class="field">
                 <label class="label">Token</label>
                 <div class="control">

@@ -22,11 +22,12 @@
             <p class="section-heading">Exceeded estimate:</p>
             <p>n/a</p>
             <p class="section-heading">Pending tasks:</p>
-                <div class="ticket" >
+                <div class="ticket">
                     <p class="pending" v-if="pendingTasks.length > 0" v-for="(ticket, index) in pendingTasks" :key="index">
                         <span class="bold">{{ index + 1 }}. - {{ ticket.key }} - </span>
                         <span>{{ ticket.fields.summary }} (<a :href="getIssueLink(ticket)">{{ getIssueLink(ticket) }}</a>)</span>
                     </p>
+                    <p v-if="pendingTasks.length === 0">n/a</p>
                 </div>
             <p class="section-heading">Input from PM / Client Required:</p>
             <p>n/a</p>
