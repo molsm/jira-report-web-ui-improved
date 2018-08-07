@@ -2,16 +2,12 @@ const axios = require('axios');
 
 const buildReport = (req, res) => {
     const getWorklog = function () {
-        return axios.get('https://' + req.body.jiraHost +'/rest/tempo-timesheets/3/worklogs/', {
+        return axios.get('https://api.tempo.io/2/worklogs/user/' + req.body.jiraWorklogUsername, {
             params: {
-                dateFrom: req.body.jiraDate,
-                dateTo: req.body.jiraDate,
-                username: req.body.jiraWorklogUsername,
+                from: req.body.jiraDate,
+                to: req.body.jiraDate,
             },
-            auth: {
-                username: req.body.jiraUsername,
-                password: req.body.jiraPassword
-            }
+            headers: {'Authorization': "Bearer " + req.body.token}
         });
     }
 
@@ -24,23 +20,21 @@ const buildReport = (req, res) => {
 
     promises.push(getWorklog());
 
-    for (let i = 0; i < issueIds.length; ++i) {
-        const request = function () {
-            return axios.get('https://' + req.body.jiraHost + '/rest/api/2/issue/' + issueIds[i], {
-                auth: {
-                    username: req.body.jiraUsername,
-                    password: req.body.jiraPassword
-                },
-            });
-        };
-        promises.push(request());
-    }
+    // TODO: Figure out how to retrieve issue in progress
+    // for (let i = 0; i < issueIds.length; ++i) {
+    //     const request = function () {
+    //         return axios.get('https://api.tempo.io/2/worklogs/issue/key/' + issueIds[i], {
+    //             headers: { 'Authorization': "Bearer " + req.body.token }
+    //         });
+    //     };
+    //     promises.push(request());
+    // }
 
     axios.all(promises)
         .then(axios.spread(function (worklog, ...issueData) {
             let responseData = {};
             responseData.pendingIssues = [];
-            responseData.worklog = worklog.data;
+            responseData.worklog = worklog.data.results;
 
             issueData.forEach(function (element) {
                 responseData.pendingIssues.push(element.data);
@@ -50,8 +44,8 @@ const buildReport = (req, res) => {
         })).catch(function (response) {
             let errorMessages = response.message;
 
-            if (response.response.data.errorMessages && response.response.data.errorMessages.length > 0) {
-                errorMessages = response.response.data.errorMessages.join();
+            if (response.response.data.errors && response.response.data.errors.length > 0) {
+                errorMessages = response.response.data.errors[0].message;
             } else if (response.response.status === 401) {
                 errorMessages = 'Invalid credentials. Unauthorized';
             }

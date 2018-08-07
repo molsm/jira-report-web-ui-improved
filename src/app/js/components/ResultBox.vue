@@ -11,10 +11,10 @@
             <div class="ticket" v-if="doneToday.length > 0" v-for="(ticket, index) in doneToday" :key="index">
                 <p>
                     <span class="bold">{{ index + 1 }}. - {{ ticket.issue.key }} - </span>
-                    <span>{{ ticket.issue.summary }} (<a :href="getIssueLink(ticket.issue.key)">{{ getIssueLink(ticket.issue.key) }}</a>) - </span>
+                    <span>{{ ticket.issue.summary }} (<a :href="getIssueLink(ticket)" target="_blank">{{ getIssueLink(ticket) }}</a>) - </span>
                     <span>{{ transformToHours(ticket.timeSpentSeconds) }}h</span>
                 </p>
-                <p class="ticket-comment">{{ ticket.comment }}</p>
+                <p class="ticket-comment">{{ formatDescription(ticket.description) }}</p>
             </div>
             <div class="ticket" v-if="doneToday.length < 1">
                 <p>n/a</p>
@@ -25,7 +25,7 @@
                 <div class="ticket" >
                     <p class="pending" v-if="pendingTasks.length > 0" v-for="(ticket, index) in pendingTasks" :key="index">
                         <span class="bold">{{ index + 1 }}. - {{ ticket.key }} - </span>
-                        <span>{{ ticket.fields.summary }} (<a :href="getIssueLink(ticket.key)">{{ getIssueLink(ticket.key) }}</a>)</span>
+                        <span>{{ ticket.fields.summary }} (<a :href="getIssueLink(ticket)">{{ getIssueLink(ticket) }}</a>)</span>
                     </p>
                 </div>
             <p class="section-heading">Input from PM / Client Required:</p>
@@ -91,9 +91,13 @@ export default {
         computeTotal(accumulator, ticket) {
             return accumulator + ticket.timeSpentSeconds;
         },
-        getIssueLink(issueId) {
-            return `https://${this.$store.state.jiraHost}/browse/${issueId}`;
-        }
+        getIssueLink(ticket) {
+            return `${ticket.issue.self.split('/').splice(0, 3).join('/')}/browse/${ticket.issue.key}`;
+        },
+        formatDescription(description) {
+            // TODO: Format list with "-" if it is not formatted
+            return description;
+        },
     },
     components: {
         GridLoader

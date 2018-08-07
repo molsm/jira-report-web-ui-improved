@@ -1,30 +1,11 @@
 <template>
     <div class="form">
-        <form v-on:submit="getReport" action="#" method="post">
-            <label class="label">Jira Host</label>
-            <div class="field has-addons">
-                <p class="control">
-                    <a class="button is-static">
-                        https://
-                    </a>
-                </p>
-                <p class="control is-expanded">
-                    <input type="text" class="input" name="Jira Host" id="jirahost" placeholder="Jira Host"
-                           v-model="jiraForm.jiraHost" :disabled="loading">
-                </p>
-            </div>
+        <form v-on:submit="getReport" action="#" method="post">§
             <div class="field">
-                <label class="label">Jira Username</label>
+                <label class="label">Token</label>
                 <div class="control">
-                    <input type="text" class="input" name="jirausername" id="jirausername" placeholder="Jira username"
-                           v-model="jiraForm.jiraUsername" :disabled="loading">
-                </div>
-            </div>
-            <div class="field">
-                <label class="label">Jira Password</label>
-                <div class="control">
-                    <input type="password" class="input" placeholder="Jira Password"
-                           v-model="jiraForm.jiraPassword" :disabled="loading">
+                    <input type="password" class="input" placeholder="Token"
+                           v-model="jiraForm.token" :disabled="loading">
                 </div>
             </div>
             <div class="field">

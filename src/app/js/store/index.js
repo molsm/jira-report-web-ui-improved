@@ -43,7 +43,7 @@ export default {
                 const found = _.find(filteredTickets, task => task.issue.key === issueKey);
 
                 if (found) {
-                    filteredTickets[issueKey].comment += '\n' + ticket.comment; // eslint-disable-line
+                    filteredTickets[issueKey].description += '\n' + ticket.description; // eslint-disable-line
                     filteredTickets[issueKey].timeSpentSeconds += ticket.timeSpentSeconds;
                 } else {
                     filteredTickets[issueKey] = ticket;
