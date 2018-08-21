@@ -6,6 +6,14 @@
     font-size: 13px;
     padding: 10px 20px;
     color: black;
+    position: relative;
+
+    .copy {
+        position: absolute;
+        top: 0;
+        right: 0;
+        border-radius: initial;
+    }
 
     .v-spinner {
         margin: 250px auto 0 auto;

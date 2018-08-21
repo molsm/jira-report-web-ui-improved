@@ -1,5 +1,6 @@
 <template>
     <div class="result-box">
+        <button class="copy button is-warning" data-clipboard-target=".result-box">Copy</button>
         <div v-if="isInLoadingState">
             <grid-loader :loading="true" :color="'rgb(93, 197, 150)'" :size="'50px'"></grid-loader>
         </div>
@@ -41,8 +42,15 @@
 </template>
 <script>
 import GridLoader from 'vue-spinner/src/GridLoader'
+import ClipboardJS from 'clipboard'
 
 export default {
+    mounted() {
+        const clip = new ClipboardJS('.copy');
+        clip.on('success', function(e) {
+            e.clearSelection();
+        });
+    },
     computed: {
         isInLoadingState() {
             return this.$store.state.loading;
