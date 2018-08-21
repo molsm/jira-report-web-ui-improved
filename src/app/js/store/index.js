@@ -17,9 +17,6 @@ export default {
         setLoading(state, flag) {
             state.loading = flag;
         },
-        setJiraHost(state, host) {
-            state.jiraHost = host;
-        },
         setReportData(state, reportData) {
             state.reportData = reportData;
         },

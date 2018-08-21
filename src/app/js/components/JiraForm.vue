@@ -51,7 +51,7 @@ export default {
         };
     },
     created() {
-        const jiraForm = JSON.parse(this.$cookies.get('jiraForm'));
+        const jiraForm = JSON.parse(localStorage.getItem('jiraForm'));
 
         if (jiraForm) {
             this.jiraForm = jiraForm;
@@ -66,10 +66,9 @@ export default {
         getReport(event) {
             event.preventDefault();
             this.$store.commit('setLoading', true);
-            this.$store.commit('setJiraHost', this.jiraForm.jiraHost);
 
-            const jiraForm = JSON.stringify(Object.assign({}, this.jiraForm, { jiraPassword: undefined }));
-            this.$cookies.set('jiraForm', jiraForm);
+            const jiraForm = JSON.stringify(Object.assign({}, this.jiraForm));
+            localStorage.setItem('jiraForm', jiraForm);
 
             const self = this;
             axios.post('/jira/buildReport', this.jiraForm)
