@@ -17,13 +17,6 @@
                 </div>
             </div>
             <div class="field">
-                <label class="label">Pending Tasks</label>
-                <div class="control">
-                    <input type="text" class="input" placeholder="ID-123,ID-123,ID-123...."
-                           v-model="jiraForm.jiraPendingTasks" :disabled="loading">
-                </div>
-            </div>
-            <div class="field">
                 <label class="label">Date</label>
                 <div class="control">
                     <input type="text" class="input" placeholder="YYYY-MM-DD" v-model="jiraForm.jiraDate" :disabled="loading">
