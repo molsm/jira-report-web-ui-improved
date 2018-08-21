@@ -41,6 +41,7 @@
     "moment": "^2.22.1",
     "node-sass": "^4.9.3",
     "numeral": "^2.0.6",
+    "primer-tooltips": "^1.5.7",
     "vue": "^2.5.16",
     "vue-cookies": "^1.5.6",
     "vue-router": "^3.0.1",

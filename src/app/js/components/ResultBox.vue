@@ -1,6 +1,6 @@
 <template>
     <div class="result-box">
-        <button class="copy button is-warning" data-clipboard-target=".result-box">Copy</button>
+        <button class="copy button is-warning tooltipped tooltipped-n" data-clipboard-target=".result-box" aria-label="Copied!">Copy</button>
         <div v-if="isInLoadingState">
             <grid-loader :loading="true" :color="'rgb(93, 197, 150)'" :size="'50px'"></grid-loader>
         </div>
@@ -47,7 +47,7 @@ import ClipboardJS from 'clipboard'
 export default {
     mounted() {
         const clip = new ClipboardJS('.copy');
-        clip.on('success', function(e) {
+        clip.on('success', (e) => {
             e.clearSelection();
         });
     },
