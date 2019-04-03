@@ -2,7 +2,7 @@ const axios = require('axios');
 
 const buildReport = (req, res) => {
     const getWorklog = function () {
-        return axios.get('https://api.tempo.io/2/worklogs/user/' + req.body.jiraWorklogUsername, {
+        return axios.get('https://api.tempo.io/core/3/worklogs/user/' + req.body.jiraWorklogUsername, {
             params: {
                 from: req.body.jiraDate,
                 to: req.body.jiraDate,
