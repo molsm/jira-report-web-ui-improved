@@ -10,11 +10,16 @@
                 <p class="help">Jira -> Tempo -> Tempo Settings -> API Integration -> Get Access Token</p>
             </div>
             <div class="field">
-                <label class="label">Jira Worklog Username</label>
+                <label class="label">Jira Account ID</label>
                 <div class="control">
-                    <input type="text" class="input" placeholder="Jira Worklog Username"
+                    <input type="text" class="input" placeholder="Jira Account ID"
                            v-model="jiraForm.jiraWorklogUsername" :disabled="loading">
                 </div>
+                <p class="help">Jira ->
+                    <a href="https://scandiweb.atlassian.net/secure/ViewProfile.jspa"
+                       target="_blank">Go to Your Profile</a>
+                    -> Copy part from URL, that comes after "https://*.atlassian.net/people/"
+                </p>
             </div>
             <div class="field">
                 <label class="label">Date</label>
