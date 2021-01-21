@@ -11,7 +11,7 @@
             <p class="section-heading done-today">Done today:</p>
             <div class="ticket" v-if="doneToday.length > 0" v-for="(ticket, index) in doneToday" :key="index">
                 <p>
-                    <span class="bold">{{ index + 1 }}. - {{ ticket.issue.key }} - </span>
+                    <span class="bold">{{ index + 1 }}. - {{ ticket.issue.name }} - </span>
                     <span>{{ ticket.issue.summary }} (<a :href="getIssueLink(ticket)" target="_blank">{{ getIssueLink(ticket) }}</a>) - </span>
                     <span>{{ transformToHours(ticket.timeSpentSeconds) }}h</span>
                 </p>
