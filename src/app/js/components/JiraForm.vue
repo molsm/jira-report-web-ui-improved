@@ -2,7 +2,7 @@
     <div class="form">
         <form v-on:submit="getReport" action="#" method="post">
             <div class="field">
-                <label class="label">Tempo Token</label>
+                <label class="label">Tempo Token*</label>
                 <div class="control">
                     <input type="password" class="input" placeholder="Tempo token"
                            v-model="jiraForm.token" :disabled="loading">
@@ -10,7 +10,7 @@
                 <p class="help">Jira -> Tempo -> Tempo Settings -> API Integration -> Get Access Token</p>
             </div>
             <div class="field">
-                <label class="label">Tempo Account ID</label>
+                <label class="label">Tempo Account ID*</label>
                 <div class="control">
                     <input type="text" class="input" placeholder="Tempo Account ID"
                            v-model="jiraForm.jiraWorklogUsername" :disabled="loading">
@@ -22,23 +22,14 @@
                 </p>
             </div>
             <div class="field">
-                <label class="label">Atlassian Workspace Name</label>
-                <div class="control">
-                    <input type="text" class="input" placeholder="Your Atlassian Workspace"
-                           v-model="jiraForm.workspace" :disabled="loading">
-                </div>
-                <p class="help">Copy part from URL, that comes before ".atlassian.net", for example,
-                    if you use "scandiweb.atlassian.net", workspace is "scandiweb" </p>
-            </div>
-            <div class="field">
-                <label class="label">Atlassian Profile Email</label>
+                <label class="label">Atlassian Profile Email*</label>
                 <div class="control">
                     <input type="text" class="input" placeholder="Atlassian Profile Email"
                            v-model="jiraForm.jiraEmail" :disabled="loading">
                 </div>
             </div>
             <div class="field">
-                <label class="label">Atlassian Token</label>
+                <label class="label">Atlassian Token*</label>
                 <div class="control">
                     <input type="password" class="input" placeholder="Atlassian Token"
                            v-model="jiraForm.atlassianToken" :disabled="loading">
@@ -50,12 +41,31 @@
             </div>
 
             <div class="field">
-                <label class="label">Date</label>
+                <label class="label">Date*</label>
                 <div class="control">
                     <input type="text" class="input" placeholder="YYYY-MM-DD" v-model="jiraForm.jiraDate" :disabled="loading">
                 </div>
             </div>
 
+            <div id="second-form">
+
+                <label class="label">Second workspace data (optional)</label>
+                <div class="field">
+                    <label class="label">Tempo Token</label>
+                    <div class="control">
+                        <input type="password" class="input" placeholder="Tempo token"
+                               v-model="jiraForm.token2" :disabled="loading">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Tempo Account ID</label>
+                    <div class="control">
+                        <input type="text" class="input" placeholder="Tempo Account ID"
+                               v-model="jiraForm.jiraWorklogUsername2" :disabled="loading">
+                    </div>
+                </div>
+            </div>
+            <br>
             <div class="field">
                 <div class="control">
                     <button class="button is-link" :disabled="loading">Get report</button>
