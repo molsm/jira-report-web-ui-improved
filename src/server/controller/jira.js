@@ -2,8 +2,8 @@ const axios = require('axios');
 
 const buildReport = (req, res) => {
 
-    function getIssueInfo(issueKey) {
-        return axios.get('https://' + req.body.workspace + '.atlassian.net/rest/api/2/issue/' + issueKey, {
+    function getIssueInfo(issueKey, workspace) {
+        return axios.get('https://' + workspace + '/rest/api/2/issue/' + issueKey, {
             auth: {
                 username: req.body.jiraEmail,
                 password: req.body.atlassianToken
@@ -13,25 +13,39 @@ const buildReport = (req, res) => {
         })
     }
 
-    axios.all(
-        [
-            axios.get('https://api.tempo.io/core/3/worklogs/user/' + req.body.jiraWorklogUsername, {
-                params: {
-                    from: req.body.jiraDate,
-                    to: req.body.jiraDate,
-                },
-                headers: {'Authorization': "Bearer " + req.body.token}
-            })
-        ]
-    ).then(axios.spread((response) => {
+    let requests = [
+        axios.get('https://api.tempo.io/core/3/worklogs/user/' + req.body.jiraWorklogUsername, {
+            params: {
+                from: req.body.jiraDate,
+                to: req.body.jiraDate,
+            },
+            headers: {'Authorization': "Bearer " + req.body.token}
+        })
+    ]
+
+    if (req.body.jiraWorklogUsername2.length && req.body.token2.length) {
+        requests.push(axios.get('https://api.tempo.io/core/3/worklogs/user/' + req.body.jiraWorklogUsername2, {
+            params: {
+                from: req.body.jiraDate,
+                to: req.body.jiraDate,
+            },
+            headers: {'Authorization': "Bearer " + req.body.token2}
+        }));
+    }
+
+    axios.all(requests).then(axios.spread((response, response2) => {
         let responseData = {};
         responseData.pendingIssues = [];
         responseData.worklog = response.data.results;
+        if (req.body.jiraWorklogUsername2.length && req.body.token2.length) {
+            responseData.worklog = response.data.results.concat(response2.data.results);
+        }
         let itemsCount = responseData.worklog.length;
 
         if (responseData.worklog.length > 0) {
             responseData.worklog.forEach(function (element, index) {
-                getIssueInfo(element.issue.key).then((response) => {
+                let workspace = /:\/\/([^\/]+)/.exec(element.issue.self)[1];
+                getIssueInfo(element.issue.key, workspace).then((response) => {
                     element.issue.name = response.data.fields.summary;
                     itemsCount--;
                     if (itemsCount === 0) {
