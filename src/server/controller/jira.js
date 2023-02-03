@@ -23,7 +23,9 @@ const buildReport = (req, res) => {
         })
     ]
 
-    if (req.body.jiraWorklogUsername2.length && req.body.token2.length) {
+    let secondFormEnabled = undefined !== req.body.jiraWorklogUsername2 && req.body.jiraWorklogUsername2.length && undefined !== req.body.token2 && req.body.token2.length;
+
+    if (secondFormEnabled) {
         requests.push(axios.get('https://api.tempo.io/core/3/worklogs/user/' + req.body.jiraWorklogUsername2, {
             params: {
                 from: req.body.jiraDate,
@@ -37,7 +39,7 @@ const buildReport = (req, res) => {
         let responseData = {};
         responseData.pendingIssues = [];
         responseData.worklog = response.data.results;
-        if (req.body.jiraWorklogUsername2.length && req.body.token2.length) {
+        if (secondFormEnabled) {
             responseData.worklog = response.data.results.concat(response2.data.results);
         }
         let itemsCount = responseData.worklog.length;
