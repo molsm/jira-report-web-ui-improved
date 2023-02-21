@@ -1,20 +1,13 @@
 FROM node:lts-alpine
 
-ENV NODE_ENV=development \
-    SERVER_PORT=80
-
-EXPOSE 80
-
-RUN apk add libsass --update-cache; \
-    mkdir -p /app
+ENV SERVER_PORT=8080
+EXPOSE 8080
 
 COPY . /app
-
 WORKDIR /app
 
-RUN npm i npm -g; \
-    npm install; \
-    npm run build;
+RUN npm install
+CMD ["npm", "run", "build"]
 
 USER node
 

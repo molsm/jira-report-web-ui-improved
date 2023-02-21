@@ -1,7 +1,5 @@
 # Jira Report Web UI
 
-![GitHub Logo](/docs/images/web.png)
-
 # Installing
 
 ## Install npm dependencies 
