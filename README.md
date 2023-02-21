@@ -5,7 +5,6 @@
 ## Install npm dependencies 
 
 ```
-npm install node-sass
 npm install
 ```
 
