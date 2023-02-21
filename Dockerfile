@@ -6,7 +6,6 @@ EXPOSE 8080
 COPY . /app
 WORKDIR /app
 
-RUN npm install node-sass
 RUN npm install
 RUN npm run build
 
